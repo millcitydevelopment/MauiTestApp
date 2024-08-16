@@ -2,6 +2,10 @@
 
 #https://developer.apple.com/documentation/security/notarizing_macos_software_before_distribution/customizing_the_notarization_workflow
 
+echo '---------Building App'
+
+dotnet publish -f net8.0-maccatalyst
+
 echo '---------Registering app with Gatekeeper'
 
 rm -r -f MacBuild/MauiApp1.app
@@ -18,4 +22,9 @@ xcrun stapler staple ./MacBuild/MauiApp1.app
 
 #xcrun notarytool log --keychain-profile "RoastPATH-Mac" 420f68b4-35c0-4117-98af-dd7615b502c1
 
+echo '---------Cleanup Gatekeeper Zip - Create Distribution Zip'
+
+rm -f MacBuild/MauiApp1.zip
+
+/usr/bin/ditto -c -k --keepParent ./MacBuild/MauiApp1.app ./MacBuild/MauiApp1.app.zip
 

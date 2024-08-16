@@ -24,8 +24,8 @@ namespace RoastPath.Client.Platforms
 
         private Phidget22Funcs ConnectPhidget(int channel)
         {
-            try
-            {
+            // try
+            // {
                 Phidget22Funcs phidget;
                 phidget = new Phidget22Funcs();
                 phidget.IsLocal = true;
@@ -59,12 +59,12 @@ namespace RoastPath.Client.Platforms
                     System.Diagnostics.Debug.WriteLine("PHIDGET WAITING: NOT ATTACHED: " + DateTime.UtcNow.ToString());
                 }
                 return phidget;
-            }
-            catch (Exception exc)
-            {
-                System.Diagnostics.Debug.WriteLine("PHIDGET CRITICAL: Failed to create Phidget - " + exc.Message);
-                return null;
-            }
+            // }
+            // catch (Exception exc)
+            // {
+            //     System.Diagnostics.Debug.WriteLine("PHIDGET CRITICAL: Failed to create Phidget - " + exc.Message);
+            //     return null;
+            // }
         }
     }
 }
