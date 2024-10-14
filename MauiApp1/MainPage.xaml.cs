@@ -1,9 +1,9 @@
-﻿using System.IO.Ports;
-
-namespace MauiApp1;
+﻿namespace MauiApp1;
 
 public partial class MainPage : ContentPage
 {
+	int count = 0;
+
 	public MainPage()
 	{
 		InitializeComponent();
@@ -11,21 +11,12 @@ public partial class MainPage : ContentPage
 
 	private void OnCounterClicked(object sender, EventArgs e)
 	{
-		double temp = ServiceLocator.Phidget.GetTemp1();
+		count++;
 
-		string portId = string.Empty;
-		string[] ports = SerialPort.GetPortNames();
-		if (ports.Length > 0)
-		{
-			portId = ports.Where(x => x.IndexOf("usbserial") > -1).FirstOrDefault() ?? string.Empty;
-			if (System.Diagnostics.Debugger.IsAttached)
-			{
-				System.Diagnostics.Debug.WriteLine(ports[0]);
-			}
-		}
-
-
-		CounterBtn.Text = $"Temperature: {temp}   Serial: {portId}";
+		if (count == 1)
+			CounterBtn.Text = $"Clicked {count} time";
+		else
+			CounterBtn.Text = $"Clicked {count} times";
 
 		SemanticScreenReader.Announce(CounterBtn.Text);
 	}

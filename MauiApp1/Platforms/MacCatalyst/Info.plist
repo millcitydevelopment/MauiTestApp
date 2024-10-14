@@ -11,6 +11,10 @@
     <!-- Please consult https://developer.apple.com/documentation/bundleresources/information_property_list/lsapplicationcategorytype -->
     <!-- <key>LSApplicationCategoryType</key> -->
     <!-- <string>public.app-category.YOUR-CATEGORY-HERE</string> -->
+
+	<key>CFBundleIdentifier</key>
+	<string>com.millcityroasters.roastpath.client</string>
+
 	<key>UIDeviceFamily</key>
 	<array>
 		<integer>2</integer>
@@ -35,10 +39,4 @@
 	<key>XSAppIconAssets</key>
 	<string>Assets.xcassets/appicon.appiconset</string>
 </dict>
-<key>CFBundleDevelopmentRegion</key>
-<string>en</string>
-<key>NSHumanReadableCopyright</key>
-<string>Mill City Roasters © 2024</string>
-<key>ITSAppUsesNonExemptEncryption</key>
-<false/>
 </plist>

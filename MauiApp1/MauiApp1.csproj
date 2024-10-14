@@ -1,7 +1,5 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <Import Project="..\..\packages\Phidget22.NET.1.13.20230109\build\Phidget22.NET.props" Condition="Exists('..\..\packages\Phidget22.NET.1.13.20230109\build\Phidget22.NET.props')" />
-
 	<PropertyGroup>
 		<!--<TargetFrameworks >net8.0-android;net8.0-ios;net8.0-maccatalyst</TargetFrameworks> -->
 		<TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('osx'))">net8.0-maccatalyst</TargetFrameworks>
@@ -26,47 +24,50 @@
 		<Nullable>enable</Nullable>
 
 		<!-- Display name -->
-		<ApplicationTitle>RoastPATH</ApplicationTitle>
+		<ApplicationTitle>RoastPath</ApplicationTitle>
 
 		<!-- App Identifier -->
 		<ApplicationId>com.millcityroasters.roastpath.client</ApplicationId>
 		<ApplicationIdGuid>8abdc0c8-ee36-44db-b2e7-32f7e00ef7b8</ApplicationIdGuid>
 
 		<!-- Versions -->
-		<ApplicationDisplayVersion>2.0</ApplicationDisplayVersion>
-		<ApplicationVersion>200</ApplicationVersion>
+		<ApplicationDisplayVersion>2.0.1620.2525</ApplicationDisplayVersion>
+		<ApplicationVersion>400</ApplicationVersion>
 
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios'">11.0</SupportedOSPlatformVersion>
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'maccatalyst'">13.1</SupportedOSPlatformVersion>
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">21.0</SupportedOSPlatformVersion>
-		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</SupportedOSPlatformVersion>
-		<TargetPlatformMinVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</TargetPlatformMinVersion>
+		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.18362.0</SupportedOSPlatformVersion>
+		<TargetPlatformMinVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.18362.0</TargetPlatformMinVersion>
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'tizen'">6.5</SupportedOSPlatformVersion>
 
-
-	</PropertyGroup>
-
-	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net8.0-maccatalyst|AnyCPU'">
-		<!--Signing-->
-		<CodesignKey>Developer ID Application: Mill City Roasters, LLC (DLJLZEVP69)</CodesignKey>
-		<CodesignEntitlements>Platforms\MacCatalyst\Entitlements.plist</CodesignEntitlements>
-		<CodesignProvision>RPScottMacCatalystDeveloperIdDistribution08082024a</CodesignProvision>
-		<CreatePackage>false</CreatePackage>
-		<EnableCodeSigning>true</EnableCodeSigning>
-		<EnablePackageSigning>true</EnablePackageSigning>
-		<MtouchLink>SdkOnly</MtouchLink>
-		<PackageSigningKey>Developer ID Installer: Mill City Roasters, LLC (DLJLZEVP69)</PackageSigningKey>
-		<RuntimeIdentifier>maccatalyst-x64</RuntimeIdentifier>
-		<!-- <RuntimeIdentifiers>maccatalyst-x64;maccatalyst-arm64</RuntimeIdentifiers> -->
-		<UseHardenedRuntime>true</UseHardenedRuntime>
-    	<MonoBundlingExtraArgs>--linkskip phidget22 --linkskip phidget22extra</MonoBundlingExtraArgs>
+		<GenerateAppInstallerFile>False</GenerateAppInstallerFile>
+		<AppxPackageSigningEnabled>True</AppxPackageSigningEnabled>
+		<PackageCertificateThumbprint>60EC5A668EF5B00DE5A073ACF33ECED50DCC852F</PackageCertificateThumbprint>
+		<AppxPackageSigningTimestampDigestAlgorithm>SHA256</AppxPackageSigningTimestampDigestAlgorithm>
+		<AppxAutoIncrementPackageRevision>False</AppxAutoIncrementPackageRevision>
+		<AppxSymbolPackageEnabled>False</AppxSymbolPackageEnabled>
+		<GenerateTestArtifacts>True</GenerateTestArtifacts>
+		<HoursBetweenUpdateChecks>0</HoursBetweenUpdateChecks>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net8.0-maccatalyst|AnyCPU'">
 	  <ApplicationTitle>RoastPath</ApplicationTitle>
 	  	<CreatePackage>false</CreatePackage>
-		<CodesignKey>Apple Development: Nick Green (22DDCFXC35)</CodesignKey>
-		<CodesignProvision>MacCatalystMCRRoastPathDevelopment</CodesignProvision>		
+		<CodesignKey>Apple Development: Scott Davis (73BCH2VZY4)</CodesignKey>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net8.0-maccatalyst|AnyCPU'">
+	  <ApplicationTitle>RoastPath</ApplicationTitle>
+		<CodesignKey>Developer ID Application: Mill City Roasters, LLC (DLJLZEVP69)</CodesignKey>
+		<CodesignProvision>RPScottMacCatalystDeveloperIdDistribution08082024a</CodesignProvision>
+		<CreatePackage>false</CreatePackage>
+		<MtouchHttpClientHandler>NSUrlSessionHandler</MtouchHttpClientHandler>
+		<UseHardenedRuntime>true</UseHardenedRuntime>
+
+		<PublishAot>true</PublishAot>
+  		<MtouchLink>Full</MtouchLink>
+  		<AotAssemblies>true</AotAssemblies>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -91,26 +92,6 @@
 		<PackageReference Include="Microsoft.Maui.Controls" Version="$(MauiVersion)" />
 		<PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="$(MauiVersion)" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="8.0.0" />
-		<PackageReference Include="Phidget22.NET" Version="1.13.20230109" />
-		<PackageReference Include="System.IO.Ports" Version="9.0.0-preview.3.24172.9" />
 	</ItemGroup>
 
-<PropertyGroup>
-	<!-- https://github.com/xamarin/xamarin-macios/issues/19451 -->
-    <_UseClassicLinker>false</_UseClassicLinker>
-</PropertyGroup>
-
-	<ItemGroup Condition="'$(TargetFramework)|$(Platform)'=='net8.0-maccatalyst|AnyCPU'">
-		<NativeReference Include="..\Phidget22\NativeBuilds\Phidget22.framework">
-			<Kind>Framework</Kind>
-			<ForceLoad>True</ForceLoad>
-			<SmartLink>False</SmartLink>
-		</NativeReference>
-	</ItemGroup>
-
-  <Target Name="_SkipCodesignVerify" BeforeTargets="_CodesignVerify" AfterTargets="_CodesignAppBundle">  
-    <PropertyGroup>    
-      <_RequireCodeSigning>false</_RequireCodeSigning>  
-    </PropertyGroup>
-  </Target>
 </Project>
