@@ -35,7 +35,7 @@
 		<ApplicationVersion>400</ApplicationVersion>
 
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios'">11.0</SupportedOSPlatformVersion>
-		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'maccatalyst'">13.1</SupportedOSPlatformVersion>
+		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'maccatalyst'">14.2</SupportedOSPlatformVersion>
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">21.0</SupportedOSPlatformVersion>
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.18362.0</SupportedOSPlatformVersion>
 		<TargetPlatformMinVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.18362.0</TargetPlatformMinVersion>
@@ -69,6 +69,16 @@
   		<MtouchLink>Full</MtouchLink>
   		<AotAssemblies>true</AotAssemblies>
 	</PropertyGroup>
+
+	<ItemGroup>
+		<NativeReference Include="Platforms/MacCatalyst/Frameworks/Phidget22.framework">
+			<Kind>Framework</Kind>
+			<Frameworks>CoreFoundation</Frameworks> <!-- Add any additional dependencies here -->
+			<IsCxx>false</IsCxx> <!-- Set to true if the framework is C++ based -->
+			<ForceLoad>true</ForceLoad>
+			<SmartLink>false</SmartLink>
+		</NativeReference>
+	</ItemGroup>
 
 	<ItemGroup>
 		<!-- App Icon -->

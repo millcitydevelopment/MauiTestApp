@@ -2,41 +2,25 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-    <!-- The Mac App Store requires you specify if the app uses encryption. -->
-    <!-- Please consult https://developer.apple.com/documentation/bundleresources/information_property_list/itsappusesnonexemptencryption -->
-    <!-- <key>ITSAppUsesNonExemptEncryption</key> -->
-    <!-- Please indicate <true/> or <false/> here. -->
-
-    <!-- Specify the category for your app here. -->
-    <!-- Please consult https://developer.apple.com/documentation/bundleresources/information_property_list/lsapplicationcategorytype -->
-    <!-- <key>LSApplicationCategoryType</key> -->
-    <!-- <string>public.app-category.YOUR-CATEGORY-HERE</string> -->
-
-	<key>CFBundleIdentifier</key>
-	<string>com.millcityroasters.roastpath.client</string>
-
-	<key>UIDeviceFamily</key>
-	<array>
-		<integer>2</integer>
-	</array>
-	<key>UIRequiredDeviceCapabilities</key>
-	<array>
-		<string>arm64</string>
-	</array>
-	<key>UISupportedInterfaceOrientations</key>
-	<array>
-		<string>UIInterfaceOrientationPortrait</string>
-		<string>UIInterfaceOrientationLandscapeLeft</string>
-		<string>UIInterfaceOrientationLandscapeRight</string>
-	</array>
-	<key>UISupportedInterfaceOrientations~ipad</key>
-	<array>
-		<string>UIInterfaceOrientationPortrait</string>
-		<string>UIInterfaceOrientationPortraitUpsideDown</string>
-		<string>UIInterfaceOrientationLandscapeLeft</string>
-		<string>UIInterfaceOrientationLandscapeRight</string>
-	</array>
-	<key>XSAppIconAssets</key>
-	<string>Assets.xcassets/appicon.appiconset</string>
+	<key>com.apple.security.app-sandbox</key>
+	<true/>
+	<key>com.apple.security.device.serial</key>
+	<true/>
+	<key>com.apple.security.device.usb</key>
+	<true/>
+	<key>com.apple.security.cs.allow-jit</key>
+	<true/>
+	<key>com.apple.security.cs.allow-unsigned-executable-memory</key>
+	<true/>
+	<key>com.apple.security.cs.disable-library-validation</key>
+	<true/>
+	<key>com.apple.security.cs.disable-executable-page-protection</key>
+	<true/>
+	<key>com.apple.security.network.client</key>
+	<true/>
+	<key>com.apple.security.files.user-selected.read-write</key>
+	<false/>
+	<key>com.apple.security.network.server</key>
+	<true/>
 </dict>
 </plist>
