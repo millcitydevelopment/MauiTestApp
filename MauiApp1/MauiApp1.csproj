@@ -113,4 +113,11 @@
       <_RequireCodeSigning>false</_RequireCodeSigning>  
     </PropertyGroup>
   </Target>
+
+<!--
+  <Target Name="HackMacBuild1" Condition="'$(Configuration)' == 'Release'" BeforeTargets="_CodesignAppBundle">
+    <Exec Command="..\MacBuild\ReleaseMacBuildFix.sh" />
+  </Target>
+-->
+
 </Project>
