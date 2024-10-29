@@ -7,6 +7,7 @@ public partial class MainPage : ContentPage
 	public MainPage()
 	{
 		InitializeComponent();
+		Phidget22.Net.EnableServerDiscovery(Phidget22.ServerType.Device);
 	}
 
 	private void OnCounterClicked(object sender, EventArgs e)
@@ -14,9 +15,9 @@ public partial class MainPage : ContentPage
 		count++;
 
 		if (count == 1)
-			CounterBtn.Text = $"Clicked {count} time";
+			CounterBtn.Text = $"Clicked {count} timeed";
 		else
-			CounterBtn.Text = $"Clicked {count} times";
+			CounterBtn.Text = $"Clicked {count} timesed";
 
 		SemanticScreenReader.Announce(CounterBtn.Text);
 	}
