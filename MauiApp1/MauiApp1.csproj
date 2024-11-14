@@ -73,7 +73,7 @@
 	<ItemGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'maccatalyst'">
 		<NativeReference Include="Platforms/MacCatalyst/Frameworks/Phidget22.framework">
 			<Kind>Framework</Kind>
-			<SmartLink>False</SmartLink>
+			<SmartLink>false</SmartLink>
 		</NativeReference>
 	</ItemGroup>
 
@@ -112,11 +112,12 @@
 		<PackageReference Include="Phidget22.NET" Version="1.20.20240911" />
 	</ItemGroup>
 
-	<!-- <Target Name="PostBuildSymlink" AfterTargets="Build">
+	<Target Name="PostBuildSymlink" AfterTargets="Build">
 		<PropertyGroup>
 			<AppBundlePath>$(OutputPath)$(AssemblyName).app</AppBundlePath>
 		</PropertyGroup>
 		<Message Text="AppBundlePath is: $(AppBundlePath)" Importance="High" Condition="Exists('$(AppBundlePath)')"/>
-    	<Exec Command="ln -s $(AppBundlePath)/Contents/Frameworks/Phidget22.framework $(AppBundlePath)/Contents/MonoBundle/libphidget22.dylib" Condition="Exists('$(AppBundlePath)')"/>
-	</Target> -->
+    	<Exec Command="ln -sf $(AppBundlePath)/Contents/Frameworks/Phidget22.framework/Versions/A/Phidget22 $(AppBundlePath)/Contents/MonoBundle/libphidget22.dylib" Condition="Exists('$(AppBundlePath)')"/>
+    	<Exec Command="ln -sf $(AppBundlePath)/Contents/Frameworks/Phidget22.framework/Versions/A/Phidget22 $(AppBundlePath)/Contents/MacOS/libphidget22.dylib" Condition="Exists('$(AppBundlePath)')"/>
+	</Target>
 </Project>
