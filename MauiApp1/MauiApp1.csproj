@@ -61,7 +61,7 @@
 	  <ApplicationTitle>RoastPath</ApplicationTitle>
 		<CodesignKey>Developer ID Application: Mill City Roasters, LLC (DLJLZEVP69)</CodesignKey>
 		<CodesignProvision>RPScottMacCatalystDeveloperIdDistribution08082024a</CodesignProvision>
-		<CreatePackage>false</CreatePackage>
+		<CreatePackage>true</CreatePackage>
 		<MtouchHttpClientHandler>NSUrlSessionHandler</MtouchHttpClientHandler>
 		<UseHardenedRuntime>true</UseHardenedRuntime>
 
@@ -70,15 +70,22 @@
   		<AotAssemblies>true</AotAssemblies>
 	</PropertyGroup>
 
-	<ItemGroup>
+	<ItemGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'maccatalyst'">
 		<NativeReference Include="Platforms/MacCatalyst/Frameworks/Phidget22.framework">
 			<Kind>Framework</Kind>
-			<Frameworks>CoreFoundation</Frameworks> <!-- Add any additional dependencies here -->
-			<IsCxx>false</IsCxx> <!-- Set to true if the framework is C++ based -->
+			<SmartLink>False</SmartLink>
+		</NativeReference>
+	</ItemGroup>
+
+	<!-- <ItemGroup>
+		<NativeReference Include="Platforms/MacCatalyst/Frameworks/Phidget22.framework">
+			<Kind>Framework</Kind>
+			<Frameworks>CoreFoundation</Frameworks>
+			<IsCxx>false</IsCxx> 
 			<ForceLoad>true</ForceLoad>
 			<SmartLink>false</SmartLink>
 		</NativeReference>
-	</ItemGroup>
+	</ItemGroup> -->
 
 	<ItemGroup>
 		<!-- App Icon -->
@@ -102,6 +109,14 @@
 		<PackageReference Include="Microsoft.Maui.Controls" Version="$(MauiVersion)" />
 		<PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="$(MauiVersion)" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="8.0.0" />
+		<PackageReference Include="Phidget22.NET" Version="1.20.20240911" />
 	</ItemGroup>
 
+	<!-- <Target Name="PostBuildSymlink" AfterTargets="Build">
+		<PropertyGroup>
+			<AppBundlePath>$(OutputPath)$(AssemblyName).app</AppBundlePath>
+		</PropertyGroup>
+		<Message Text="AppBundlePath is: $(AppBundlePath)" Importance="High" Condition="Exists('$(AppBundlePath)')"/>
+    	<Exec Command="ln -s $(AppBundlePath)/Contents/Frameworks/Phidget22.framework $(AppBundlePath)/Contents/MonoBundle/libphidget22.dylib" Condition="Exists('$(AppBundlePath)')"/>
+	</Target> -->
 </Project>

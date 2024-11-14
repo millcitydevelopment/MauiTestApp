@@ -242,18 +242,32 @@ typedef enum {
  PHIDID_1215__1218 = 0x2f,
  PHIDID_1219__1222 = 0x30,
 
+ PHIDID_ADP_I2C = 0x86,
+ PHIDID_ADP_RS485_422 = 0x85,
+ PHIDID_ADP_SPI = 0xa0,
+ PHIDID_ADP_UART = 0xa1,
  PHIDID_ADP1000 = 0x31,
+ PHIDID_ADP1001 = 0x84,
+ PHIDID_CURLOOP = 0x7a,
  PHIDID_DAQ1000 = 0x33,
+ PHIDID_DAQ1001 = 0x9d,
  PHIDID_DAQ1200 = 0x34,
  PHIDID_DAQ1300 = 0x35,
  PHIDID_DAQ1301 = 0x36,
  PHIDID_DAQ1400 = 0x37,
  PHIDID_DAQ1500 = 0x38,
+ PHIDID_DAQ1501 = 0x9c,
  PHIDID_DCC1000 = 0x39,
  PHIDID_DCC1001 = 0x6e,
  PHIDID_DCC1002 = 0x75,
  PHIDID_DCC1003 = 0x78,
+ PHIDID_DCC1010 = 0x97,
+ PHIDID_DCC1020 = 0x80,
+ PHIDID_DCC1030 = 0x98,
  PHIDID_DCC1100 = 0x6c,
+ PHIDID_DCC1110 = 0x99,
+ PHIDID_DCC1120 = 0x96,
+ PHIDID_DCC1130 = 0x9a,
  PHIDID_DST1000 = 0x3a,
  PHIDID_DST1001 = 0x79,
  PHIDID_DST1002 = 0x7e,
@@ -266,6 +280,8 @@ typedef enum {
  PHIDID_FIRMWARE_UPGRADE_STM32G0 = 0x8f,
  PHIDID_FIRMWARE_UPGRADE_STM8S = 0x67,
  PHIDID_FIRMWARE_UPGRADE_USB = 0x65,
+ PHIDID_GENERICUSB = 0x63,
+ PHIDID_GENERICVINT = 0x64,
  PHIDID_HIN1000 = 0x3d,
  PHIDID_HIN1001 = 0x3e,
  PHIDID_HIN1100 = 0x3f,
@@ -282,8 +298,12 @@ typedef enum {
  PHIDID_INTERFACEKIT_4_8_8 = 0x1,
  PHIDID_LCD1100 = 0x46,
  PHIDID_LED1000 = 0x47,
+ PHIDID_LIGHTNINGHUB = 0x44,
  PHIDID_LUX1000 = 0x48,
+ PHIDID_MESHDONGLE = 0x42,
+ PHIDID_MESHHUB = 0x41,
  PHIDID_MOT0100 = 0x92,
+ PHIDID_MOT0108 = 0x83,
  PHIDID_MOT0109 = 0x8c,
  PHIDID_MOT0110 = 0x8d,
  PHIDID_MOT1100 = 0x49,
@@ -305,11 +325,17 @@ typedef enum {
  PHIDID_STC1001 = 0x73,
  PHIDID_STC1002 = 0x76,
  PHIDID_STC1003 = 0x77,
+ PHIDID_STC1004 = 0x90,
  PHIDID_STC1005 = 0x95,
+ PHIDID_TMP0102 = 0x9f,
  PHIDID_TMP1000 = 0x57,
  PHIDID_TMP1100 = 0x58,
  PHIDID_TMP1101 = 0x59,
  PHIDID_TMP1200 = 0x5a,
+ PHIDID_TMP1202 = 0x9e,
+ PHIDID_TMP1300 = 0x5b,
+ PHIDID_TP_DIAGNOSER = 0x8b,
+ PHIDID_USBSWITCH = 0x74,
  PHIDID_VCP1000 = 0x5c,
  PHIDID_VCP1001 = 0x5d,
  PHIDID_VCP1002 = 0x5e,
@@ -442,9 +468,9 @@ typedef enum {
 } Phidget_FanMode;
 
 typedef enum {
- DECELERATION_TYPE_COAST = 0x1,
- DECELERATION_TYPE_FORCED = 0x2,
-} Phidget_DecelerationType;
+ DRIVE_MODE_COAST = 0x1,
+ DRIVE_MODE_FORCED = 0x2,
+} Phidget_DriveMode;
 
 typedef enum {
  POSITION_TYPE_ENCODER = 0x1,
@@ -644,6 +670,8 @@ typedef enum {
  PROTOCOL_EM4100 = 0x1,
  PROTOCOL_ISO11785_FDX_B = 0x2,
  PROTOCOL_PHIDGETS = 0x3,
+ PROTOCOL_HID_GENERIC = 0x4,
+ PROTOCOL_HID_H10301 = 0x5,
 } PhidgetRFID_Protocol;
 
 typedef struct {
@@ -821,20 +849,14 @@ typedef enum {
 typedef enum {
  HANDSHAKE_MODE_NONE = 0x1,
  HANDSHAKE_MODE_REQUEST_TO_SEND = 0x2,
-
  HANDSHAKE_MODE_READY_TO_RECEIVE = 0x3,
-
 } PhidgetDataAdapter_HandshakeMode;
 
 typedef enum {
  PROTOCOL_RS485 = 0x1,
  PROTOCOL_RS422 = 0x2,
  PROTOCOL_DMX512 = 0x3,
-
  PROTOCOL_MODBUS_RTU = 0x4,
- PROTOCOL_SPI = 0x5,
- PROTOCOL_I2C = 0x6,
- PROTOCOL_UART = 0x7,
  PROTOCOL_RS232 = 0x8,
 } PhidgetDataAdapter_Protocol;
 
@@ -844,6 +866,13 @@ typedef enum {
  SPI_MODE_2 = 0x3,
  SPI_MODE_3 = 0x4,
 } PhidgetDataAdapter_SPIMode;
+
+typedef enum {
+ SPI_CHIP_SELECT_ACTIVE_LOW = 0x1,
+ SPI_CHIP_SELECT_ACTIVE_HIGH = 0x2,
+ SPI_CHIP_SELECT_LOW = 0x3,
+ SPI_CHIP_SELECT_HIGH = 0x4,
+} PhidgetDataAdapter_SPIChipSelect;
 
 typedef enum {
  ENDIANNESS_MSB_FIRST = 0x1,
@@ -863,12 +892,10 @@ typedef enum {
  PACKET_ERROR_UNKNOWN = 0x1,
  PACKET_ERROR_TIMEOUT = 0x2,
  PACKET_ERROR_FORMAT = 0x3,
-
  PACKET_ERROR_INVALID = 0x4,
-
  PACKET_ERROR_OVERRUN = 0x5,
-
  PACKET_ERROR_CORRUPT = 0x6,
+ PACKET_ERROR_NACK = 0x7,
 } PhidgetDataAdapter_PacketErrorCode;
 
 typedef enum {
@@ -997,6 +1024,39 @@ typedef void( *PhidgetDictionary_OnChangeCallback)(int, const char *, void *, in
 
  PhidgetReturnCode Phidget_setOnWillSleepHandler(void( *fptr)(void *ctx), void *ctx);
  PhidgetReturnCode Phidget_setOnWakeupHandler(void( *fptr)(void *ctx), void *ctx);
+ PhidgetReturnCode Phidget_getDeviceVINTID(PhidgetHandle deviceOrChannel, uint32_t *VINTID);
+ PhidgetReturnCode Phidget_getDeviceFirmwareUpgradeString(PhidgetHandle deviceOrChannel, const char **buffer);
+ PhidgetReturnCode Phidget_reboot(PhidgetHandle phid);
+ PhidgetReturnCode Phidget_rebootFirmwareUpgrade(PhidgetHandle phid, uint32_t upgradeTimeout);
+
+ PhidgetReturnCode Phidget_writeFlash(PhidgetHandle phid);
+
+
+
+
+
+
+ PhidgetReturnCode Phidget_calibrate(PhidgetHandle device, uint8_t offset, uint8_t data[6]);
+ PhidgetReturnCode Phidget_calibrateGainOffset(PhidgetHandle device, int index, uint16_t offset, uint32_t gain);
+ PhidgetReturnCode Phidget_calibrateGainOffset2(PhidgetHandle device, int Index, uint16_t offset, uint32_t gain1, uint32_t gain2);
+
+ PhidgetReturnCode Phidget_enterCalibrationMode(PhidgetHandle phid, uint32_t confirm);
+ PhidgetReturnCode Phidget_exitCalibrationMode(PhidgetHandle phid);
+ PhidgetReturnCode Phidget_writeCalibrationData(PhidgetHandle phid, uint32_t offset, const uint8_t *data, size_t dataLen);
+
+typedef void( *Phidget_OnCalibrationDataCallback)(PhidgetHandle phid, void *ctx, const uint8_t *data, size_t dataLength);
+ PhidgetReturnCode Phidget_setOnCalibrationDataHandler(PhidgetHandle phid, Phidget_OnCalibrationDataCallback fptr, void *ctx);
+
+
+ PhidgetReturnCode Phidget_rebootISP(PhidgetHandle phid);
+ PhidgetReturnCode Phidget_setDeviceSpecificConfigTable(PhidgetHandle phid, int index, const uint8_t *data, size_t dataLen);
+ PhidgetReturnCode Phidget_setDeviceWideConfigTable(PhidgetHandle phid, int index, const uint8_t *data, size_t dataLen);
+ PhidgetReturnCode Phidget_eraseConfig(PhidgetHandle phid);
+ PhidgetReturnCode Phidget_zeroConfig(PhidgetHandle phid);
+
+
+ PhidgetReturnCode Phidget_getChannelPersistence(PhidgetHandle phid, int *channelPersistence);
+ PhidgetReturnCode Phidget_setChannelPersistence(PhidgetHandle phid, int channelPersistence);
 typedef struct _PhidgetManager *PhidgetManagerHandle;
 
 
@@ -1074,6 +1134,12 @@ typedef void( *PhidgetNet_OnServerRemovedCallback)(void *ctx, PhidgetServerHandl
  PhidgetReturnCode PhidgetNet_startServer(int flags, int addressFamily, const char *serverName, const char *address, int port,
             const char *password, PhidgetServerHandle *server);
  PhidgetReturnCode PhidgetNet_stopServer(PhidgetServerHandle *server);
+
+
+
+ PhidgetReturnCode PhidgetNet_setProperty(const char *key, const char *property, ...);
+ PhidgetReturnCode PhidgetNet_setPropertyv(const char *key, const char *property, va_list);
+ PhidgetReturnCode PhidgetNet_removeAllServers(void);
 
 
 
@@ -1385,10 +1451,10 @@ typedef struct _PhidgetAccelerometer *PhidgetAccelerometerHandle;
  PhidgetReturnCode PhidgetAccelerometer_getHeatingEnabled(PhidgetAccelerometerHandle ch,
   int *heatingEnabled);
 
-
-
-
-
+ PhidgetReturnCode PhidgetAccelerometer_setPrecision(PhidgetAccelerometerHandle ch,
+  Phidget_SpatialPrecision precision);
+ PhidgetReturnCode PhidgetAccelerometer_getPrecision(PhidgetAccelerometerHandle ch,
+  Phidget_SpatialPrecision *precision);
 
  PhidgetReturnCode PhidgetAccelerometer_getTimestamp(PhidgetAccelerometerHandle ch, double *timestamp);
 
@@ -1626,10 +1692,10 @@ typedef struct _PhidgetGyroscope *PhidgetGyroscopeHandle;
  PhidgetReturnCode PhidgetGyroscope_setHeatingEnabled(PhidgetGyroscopeHandle ch, int heatingEnabled);
  PhidgetReturnCode PhidgetGyroscope_getHeatingEnabled(PhidgetGyroscopeHandle ch, int *heatingEnabled);
 
-
-
-
-
+ PhidgetReturnCode PhidgetGyroscope_setPrecision(PhidgetGyroscopeHandle ch,
+  Phidget_SpatialPrecision precision);
+ PhidgetReturnCode PhidgetGyroscope_getPrecision(PhidgetGyroscopeHandle ch,
+  Phidget_SpatialPrecision *precision);
 
  PhidgetReturnCode PhidgetGyroscope_getTimestamp(PhidgetGyroscopeHandle ch, double *timestamp);
 
@@ -1744,10 +1810,10 @@ typedef struct _PhidgetSpatial *PhidgetSpatialHandle;
  PhidgetReturnCode PhidgetSpatial_getMaxMagneticField(PhidgetSpatialHandle ch,
   double (*maxMagneticField)[3]);
 
-
-
-
-
+ PhidgetReturnCode PhidgetSpatial_setPrecision(PhidgetSpatialHandle ch,
+  Phidget_SpatialPrecision precision);
+ PhidgetReturnCode PhidgetSpatial_getPrecision(PhidgetSpatialHandle ch,
+  Phidget_SpatialPrecision *precision);
 
  PhidgetReturnCode PhidgetSpatial_getQuaternion(PhidgetSpatialHandle ch,
   PhidgetSpatial_SpatialQuaternion *quaternion);
@@ -2032,10 +2098,14 @@ typedef struct _PhidgetDCMotor *PhidgetDCMotorHandle;
  PhidgetReturnCode PhidgetDCMotor_getAcceleration(PhidgetDCMotorHandle ch, double *acceleration);
  PhidgetReturnCode PhidgetDCMotor_getMinAcceleration(PhidgetDCMotorHandle ch, double *minAcceleration);
  PhidgetReturnCode PhidgetDCMotor_getMaxAcceleration(PhidgetDCMotorHandle ch, double *maxAcceleration);
+ PhidgetReturnCode PhidgetDCMotor_getActiveCurrentLimit(PhidgetDCMotorHandle ch,
+  double *activeCurrentLimit);
  PhidgetReturnCode PhidgetDCMotor_getBackEMF(PhidgetDCMotorHandle ch, double *backEMF);
  PhidgetReturnCode PhidgetDCMotor_setBackEMFSensingState(PhidgetDCMotorHandle ch, int backEMFSensingState);
  PhidgetReturnCode PhidgetDCMotor_getBackEMFSensingState(PhidgetDCMotorHandle ch,
   int *backEMFSensingState);
+ PhidgetReturnCode PhidgetDCMotor_setBrakingEnabled(PhidgetDCMotorHandle ch, int brakingEnabled);
+ PhidgetReturnCode PhidgetDCMotor_getBrakingEnabled(PhidgetDCMotorHandle ch, int *brakingEnabled);
  PhidgetReturnCode PhidgetDCMotor_getBrakingStrength(PhidgetDCMotorHandle ch, double *brakingStrength);
  PhidgetReturnCode PhidgetDCMotor_getMinBrakingStrength(PhidgetDCMotorHandle ch,
   double *minBrakingStrength);
@@ -2061,10 +2131,30 @@ typedef struct _PhidgetDCMotor *PhidgetDCMotorHandle;
  PhidgetReturnCode PhidgetDCMotor_getDataRate(PhidgetDCMotorHandle ch, double *dataRate);
  PhidgetReturnCode PhidgetDCMotor_getMinDataRate(PhidgetDCMotorHandle ch, double *minDataRate);
  PhidgetReturnCode PhidgetDCMotor_getMaxDataRate(PhidgetDCMotorHandle ch, double *maxDataRate);
+ PhidgetReturnCode PhidgetDCMotor_setDriveMode(PhidgetDCMotorHandle ch, Phidget_DriveMode driveMode);
+ PhidgetReturnCode PhidgetDCMotor_getDriveMode(PhidgetDCMotorHandle ch, Phidget_DriveMode *driveMode);
+ PhidgetReturnCode PhidgetDCMotor_setFailsafeBrakingEnabled(PhidgetDCMotorHandle ch,
+  int failsafeBrakingEnabled);
+ PhidgetReturnCode PhidgetDCMotor_getFailsafeBrakingEnabled(PhidgetDCMotorHandle ch,
+  int *failsafeBrakingEnabled);
+ PhidgetReturnCode PhidgetDCMotor_setFailsafeCurrentLimit(PhidgetDCMotorHandle ch,
+  double failsafeCurrentLimit);
+ PhidgetReturnCode PhidgetDCMotor_getFailsafeCurrentLimit(PhidgetDCMotorHandle ch,
+  double *failsafeCurrentLimit);
  PhidgetReturnCode PhidgetDCMotor_getMinFailsafeTime(PhidgetDCMotorHandle ch, uint32_t *minFailsafeTime);
  PhidgetReturnCode PhidgetDCMotor_getMaxFailsafeTime(PhidgetDCMotorHandle ch, uint32_t *maxFailsafeTime);
  PhidgetReturnCode PhidgetDCMotor_setFanMode(PhidgetDCMotorHandle ch, Phidget_FanMode fanMode);
  PhidgetReturnCode PhidgetDCMotor_getFanMode(PhidgetDCMotorHandle ch, Phidget_FanMode *fanMode);
+ PhidgetReturnCode PhidgetDCMotor_setInductance(PhidgetDCMotorHandle ch, double inductance);
+ PhidgetReturnCode PhidgetDCMotor_getInductance(PhidgetDCMotorHandle ch, double *inductance);
+ PhidgetReturnCode PhidgetDCMotor_getMinInductance(PhidgetDCMotorHandle ch, double *minInductance);
+ PhidgetReturnCode PhidgetDCMotor_getMaxInductance(PhidgetDCMotorHandle ch, double *maxInductance);
+ PhidgetReturnCode PhidgetDCMotor_setSurgeCurrentLimit(PhidgetDCMotorHandle ch, double surgeCurrentLimit);
+ PhidgetReturnCode PhidgetDCMotor_getSurgeCurrentLimit(PhidgetDCMotorHandle ch, double *surgeCurrentLimit);
+ PhidgetReturnCode PhidgetDCMotor_getMinSurgeCurrentLimit(PhidgetDCMotorHandle ch,
+  double *minSurgeCurrentLimit);
+ PhidgetReturnCode PhidgetDCMotor_getMaxSurgeCurrentLimit(PhidgetDCMotorHandle ch,
+  double *maxSurgeCurrentLimit);
  PhidgetReturnCode PhidgetDCMotor_setTargetBrakingStrength(PhidgetDCMotorHandle ch,
   double targetBrakingStrength);
  PhidgetReturnCode PhidgetDCMotor_getTargetBrakingStrength(PhidgetDCMotorHandle ch,
@@ -2295,6 +2385,136 @@ typedef struct _PhidgetLCD *PhidgetLCDHandle;
 
 
 
+
+typedef struct _PhidgetDataAdapter *PhidgetDataAdapterHandle;
+
+
+ PhidgetReturnCode PhidgetDataAdapter_create(PhidgetDataAdapterHandle *ch);
+ PhidgetReturnCode PhidgetDataAdapter_delete(PhidgetDataAdapterHandle *ch);
+ PhidgetReturnCode PhidgetDataAdapter_setI2CFormat(PhidgetDataAdapterHandle ch, const char *format);
+ PhidgetReturnCode PhidgetDataAdapter_getLastData(PhidgetDataAdapterHandle ch, uint8_t *data,
+  size_t *dataLen, PhidgetDataAdapter_PacketErrorCode *lastDataError);
+ PhidgetReturnCode PhidgetDataAdapter_setEndOfLine(PhidgetDataAdapterHandle ch, const char *endOfLine);
+ PhidgetReturnCode PhidgetDataAdapter_readLine(PhidgetDataAdapterHandle ch, char *data, size_t *dataLen);
+ PhidgetReturnCode PhidgetDataAdapter_sendPacket(PhidgetDataAdapterHandle ch, const uint8_t *data,
+  size_t dataLen);
+ void PhidgetDataAdapter_sendPacket_async(PhidgetDataAdapterHandle ch, const uint8_t *data,
+  size_t dataLen, Phidget_AsyncCallback fptr, void *ctx);
+ PhidgetReturnCode PhidgetDataAdapter_sendPacketWaitResponse(PhidgetDataAdapterHandle ch,
+  const uint8_t *sendData, size_t sendDataLen, uint8_t *recvData, size_t *recvDataLen, PhidgetDataAdapter_PacketErrorCode *error);
+ PhidgetReturnCode PhidgetDataAdapter_write(PhidgetDataAdapterHandle ch, const char *sendData);
+ void PhidgetDataAdapter_write_async(PhidgetDataAdapterHandle ch, const char *sendData,
+  Phidget_AsyncCallback fptr, void *ctx);
+ PhidgetReturnCode PhidgetDataAdapter_writeLine(PhidgetDataAdapterHandle ch, const char *sendData);
+ void PhidgetDataAdapter_writeLine_async(PhidgetDataAdapterHandle ch, const char *sendData,
+  Phidget_AsyncCallback fptr, void *ctx);
+ PhidgetReturnCode PhidgetDataAdapter_writeLineWaitResponse(PhidgetDataAdapterHandle ch,
+  const char *sendData, char *recvData, size_t *recvDataLen, PhidgetDataAdapter_PacketErrorCode *error);
+
+
+ PhidgetReturnCode PhidgetDataAdapter_setBaudRate(PhidgetDataAdapterHandle ch, uint32_t baudRate);
+ PhidgetReturnCode PhidgetDataAdapter_getBaudRate(PhidgetDataAdapterHandle ch, uint32_t *baudRate);
+ PhidgetReturnCode PhidgetDataAdapter_getMinBaudRate(PhidgetDataAdapterHandle ch, uint32_t *minBaudRate);
+ PhidgetReturnCode PhidgetDataAdapter_getMaxBaudRate(PhidgetDataAdapterHandle ch, uint32_t *maxBaudRate);
+ PhidgetReturnCode PhidgetDataAdapter_setDataBits(PhidgetDataAdapterHandle ch, uint32_t dataBits);
+ PhidgetReturnCode PhidgetDataAdapter_getDataBits(PhidgetDataAdapterHandle ch, uint32_t *dataBits);
+ PhidgetReturnCode PhidgetDataAdapter_getMinDataBits(PhidgetDataAdapterHandle ch, uint32_t *minDataBits);
+ PhidgetReturnCode PhidgetDataAdapter_getMaxDataBits(PhidgetDataAdapterHandle ch, uint32_t *maxDataBits);
+ PhidgetReturnCode PhidgetDataAdapter_setDeviceAddress(PhidgetDataAdapterHandle ch,
+  uint32_t deviceAddress);
+ PhidgetReturnCode PhidgetDataAdapter_getDeviceAddress(PhidgetDataAdapterHandle ch,
+  uint32_t *deviceAddress);
+ PhidgetReturnCode PhidgetDataAdapter_setHandshakeMode(PhidgetDataAdapterHandle ch,
+  PhidgetDataAdapter_HandshakeMode handshakeMode);
+ PhidgetReturnCode PhidgetDataAdapter_getHandshakeMode(PhidgetDataAdapterHandle ch,
+  PhidgetDataAdapter_HandshakeMode *handshakeMode);
+ PhidgetReturnCode PhidgetDataAdapter_setEndianness(PhidgetDataAdapterHandle ch,
+  PhidgetDataAdapter_Endianness endianness);
+ PhidgetReturnCode PhidgetDataAdapter_getEndianness(PhidgetDataAdapterHandle ch,
+  PhidgetDataAdapter_Endianness *endianness);
+ PhidgetReturnCode PhidgetDataAdapter_setIgnoreResponse(PhidgetDataAdapterHandle ch, int ignoreResponse);
+ PhidgetReturnCode PhidgetDataAdapter_getIgnoreResponse(PhidgetDataAdapterHandle ch, int *ignoreResponse);
+ PhidgetReturnCode PhidgetDataAdapter_setIOVoltage(PhidgetDataAdapterHandle ch,
+  PhidgetDataAdapter_IOVoltage IOVoltage);
+ PhidgetReturnCode PhidgetDataAdapter_getIOVoltage(PhidgetDataAdapterHandle ch,
+  PhidgetDataAdapter_IOVoltage *IOVoltage);
+ PhidgetReturnCode PhidgetDataAdapter_getNewDataAvailable(PhidgetDataAdapterHandle ch,
+  int *newDataAvailable);
+ PhidgetReturnCode PhidgetDataAdapter_setParity(PhidgetDataAdapterHandle ch,
+  PhidgetDataAdapter_Parity parity);
+ PhidgetReturnCode PhidgetDataAdapter_getParity(PhidgetDataAdapterHandle ch,
+  PhidgetDataAdapter_Parity *parity);
+ PhidgetReturnCode PhidgetDataAdapter_setProtocol(PhidgetDataAdapterHandle ch,
+  PhidgetDataAdapter_Protocol protocol);
+ PhidgetReturnCode PhidgetDataAdapter_getProtocol(PhidgetDataAdapterHandle ch,
+  PhidgetDataAdapter_Protocol *protocol);
+ PhidgetReturnCode PhidgetDataAdapter_getMaxReceivePacketLength(PhidgetDataAdapterHandle ch,
+  uint32_t *maxReceivePacketLength);
+ PhidgetReturnCode PhidgetDataAdapter_setResponseTimeout(PhidgetDataAdapterHandle ch,
+  uint32_t responseTimeout);
+ PhidgetReturnCode PhidgetDataAdapter_getResponseTimeout(PhidgetDataAdapterHandle ch,
+  uint32_t *responseTimeout);
+ PhidgetReturnCode PhidgetDataAdapter_getMinResponseTimeout(PhidgetDataAdapterHandle ch,
+  uint32_t *minResponseTimeout);
+ PhidgetReturnCode PhidgetDataAdapter_getMaxResponseTimeout(PhidgetDataAdapterHandle ch,
+  uint32_t *maxResponseTimeout);
+ PhidgetReturnCode PhidgetDataAdapter_getMaxSendPacketLength(PhidgetDataAdapterHandle ch,
+  uint32_t *maxSendPacketLength);
+ PhidgetReturnCode PhidgetDataAdapter_getMaxSendWaitPacketLength(PhidgetDataAdapterHandle ch,
+  uint32_t *maxSendWaitPacketLength);
+ PhidgetReturnCode PhidgetDataAdapter_setSPIChipSelect(PhidgetDataAdapterHandle ch,
+  PhidgetDataAdapter_SPIChipSelect SPIChipSelect);
+ PhidgetReturnCode PhidgetDataAdapter_getSPIChipSelect(PhidgetDataAdapterHandle ch,
+  PhidgetDataAdapter_SPIChipSelect *SPIChipSelect);
+ PhidgetReturnCode PhidgetDataAdapter_setSPIMode(PhidgetDataAdapterHandle ch,
+  PhidgetDataAdapter_SPIMode SPIMode);
+ PhidgetReturnCode PhidgetDataAdapter_getSPIMode(PhidgetDataAdapterHandle ch,
+  PhidgetDataAdapter_SPIMode *SPIMode);
+ PhidgetReturnCode PhidgetDataAdapter_setStopBits(PhidgetDataAdapterHandle ch,
+  PhidgetDataAdapter_StopBits stopBits);
+ PhidgetReturnCode PhidgetDataAdapter_getStopBits(PhidgetDataAdapterHandle ch,
+  PhidgetDataAdapter_StopBits *stopBits);
+ PhidgetReturnCode PhidgetDataAdapter_setTransmitTimeout(PhidgetDataAdapterHandle ch,
+  uint32_t transmitTimeout);
+ PhidgetReturnCode PhidgetDataAdapter_getTransmitTimeout(PhidgetDataAdapterHandle ch,
+  uint32_t *transmitTimeout);
+ PhidgetReturnCode PhidgetDataAdapter_getMinTransmitTimeout(PhidgetDataAdapterHandle ch,
+  uint32_t *minTransmitTimeout);
+ PhidgetReturnCode PhidgetDataAdapter_getMaxTransmitTimeout(PhidgetDataAdapterHandle ch,
+  uint32_t *maxTransmitTimeout);
+
+
+typedef void ( *PhidgetDataAdapter_OnPacketCallback)(PhidgetDataAdapterHandle ch, void *ctx,
+  const uint8_t *data, size_t dataLen, PhidgetDataAdapter_PacketErrorCode error);
+
+ PhidgetReturnCode PhidgetDataAdapter_setOnPacketHandler(PhidgetDataAdapterHandle ch,
+  PhidgetDataAdapter_OnPacketCallback fptr, void *ctx);
+
+
+
+
+
+
+typedef struct _PhidgetCurrentOutput *PhidgetCurrentOutputHandle;
+
+
+ PhidgetReturnCode PhidgetCurrentOutput_create(PhidgetCurrentOutputHandle *ch);
+ PhidgetReturnCode PhidgetCurrentOutput_delete(PhidgetCurrentOutputHandle *ch);
+
+
+ PhidgetReturnCode PhidgetCurrentOutput_setCurrent(PhidgetCurrentOutputHandle ch, double current);
+ void PhidgetCurrentOutput_setCurrent_async(PhidgetCurrentOutputHandle ch, double current,
+  Phidget_AsyncCallback fptr, void *ctx);
+ PhidgetReturnCode PhidgetCurrentOutput_getCurrent(PhidgetCurrentOutputHandle ch, double *current);
+ PhidgetReturnCode PhidgetCurrentOutput_getMinCurrent(PhidgetCurrentOutputHandle ch, double *minCurrent);
+ PhidgetReturnCode PhidgetCurrentOutput_getMaxCurrent(PhidgetCurrentOutputHandle ch, double *maxCurrent);
+ PhidgetReturnCode PhidgetCurrentOutput_setEnabled(PhidgetCurrentOutputHandle ch, int enabled);
+ PhidgetReturnCode PhidgetCurrentOutput_getEnabled(PhidgetCurrentOutputHandle ch, int *enabled);
+
+
+
+
+
 typedef struct _PhidgetMotorPositionController *PhidgetMotorPositionControllerHandle;
 
 
@@ -2315,6 +2535,7 @@ typedef struct _PhidgetMotorPositionController *PhidgetMotorPositionControllerHa
   double *minAcceleration);
  PhidgetReturnCode PhidgetMotorPositionController_getMaxAcceleration(PhidgetMotorPositionControllerHandle ch,
   double *maxAcceleration);
+ PhidgetReturnCode PhidgetMotorPositionController_getActiveCurrentLimit(PhidgetMotorPositionControllerHandle ch, double *activeCurrentLimit);
  PhidgetReturnCode PhidgetMotorPositionController_setCurrentLimit(PhidgetMotorPositionControllerHandle ch,
   double currentLimit);
  PhidgetReturnCode PhidgetMotorPositionController_getCurrentLimit(PhidgetMotorPositionControllerHandle ch,
@@ -2353,6 +2574,13 @@ typedef struct _PhidgetMotorPositionController *PhidgetMotorPositionControllerHa
   int engaged);
  PhidgetReturnCode PhidgetMotorPositionController_getEngaged(PhidgetMotorPositionControllerHandle ch,
   int *engaged);
+ PhidgetReturnCode PhidgetMotorPositionController_getExpectedPosition(PhidgetMotorPositionControllerHandle ch, double *expectedPosition);
+ PhidgetReturnCode PhidgetMotorPositionController_setEnableExpectedPosition(PhidgetMotorPositionControllerHandle ch, int enableExpectedPosition);
+ PhidgetReturnCode PhidgetMotorPositionController_getEnableExpectedPosition(PhidgetMotorPositionControllerHandle ch, int *enableExpectedPosition);
+ PhidgetReturnCode PhidgetMotorPositionController_setFailsafeBrakingEnabled(PhidgetMotorPositionControllerHandle ch, int failsafeBrakingEnabled);
+ PhidgetReturnCode PhidgetMotorPositionController_getFailsafeBrakingEnabled(PhidgetMotorPositionControllerHandle ch, int *failsafeBrakingEnabled);
+ PhidgetReturnCode PhidgetMotorPositionController_setFailsafeCurrentLimit(PhidgetMotorPositionControllerHandle ch, double failsafeCurrentLimit);
+ PhidgetReturnCode PhidgetMotorPositionController_getFailsafeCurrentLimit(PhidgetMotorPositionControllerHandle ch, double *failsafeCurrentLimit);
  PhidgetReturnCode PhidgetMotorPositionController_getMinFailsafeTime(PhidgetMotorPositionControllerHandle ch,
   uint32_t *minFailsafeTime);
  PhidgetReturnCode PhidgetMotorPositionController_getMaxFailsafeTime(PhidgetMotorPositionControllerHandle ch,
@@ -2361,6 +2589,14 @@ typedef struct _PhidgetMotorPositionController *PhidgetMotorPositionControllerHa
   Phidget_FanMode fanMode);
  PhidgetReturnCode PhidgetMotorPositionController_getFanMode(PhidgetMotorPositionControllerHandle ch,
   Phidget_FanMode *fanMode);
+ PhidgetReturnCode PhidgetMotorPositionController_setInductance(PhidgetMotorPositionControllerHandle ch,
+  double inductance);
+ PhidgetReturnCode PhidgetMotorPositionController_getInductance(PhidgetMotorPositionControllerHandle ch,
+  double *inductance);
+ PhidgetReturnCode PhidgetMotorPositionController_getMinInductance(PhidgetMotorPositionControllerHandle ch,
+  double *minInductance);
+ PhidgetReturnCode PhidgetMotorPositionController_getMaxInductance(PhidgetMotorPositionControllerHandle ch,
+  double *maxInductance);
  PhidgetReturnCode PhidgetMotorPositionController_setIOMode(PhidgetMotorPositionControllerHandle ch,
   Phidget_EncoderIOMode IOMode);
  PhidgetReturnCode PhidgetMotorPositionController_getIOMode(PhidgetMotorPositionControllerHandle ch,
@@ -2377,12 +2613,20 @@ typedef struct _PhidgetMotorPositionController *PhidgetMotorPositionControllerHa
   double kp);
  PhidgetReturnCode PhidgetMotorPositionController_getKp(PhidgetMotorPositionControllerHandle ch,
   double *kp);
+ PhidgetReturnCode PhidgetMotorPositionController_setNormalizePID(PhidgetMotorPositionControllerHandle ch,
+  int normalizePID);
+ PhidgetReturnCode PhidgetMotorPositionController_getNormalizePID(PhidgetMotorPositionControllerHandle ch,
+  int *normalizePID);
  PhidgetReturnCode PhidgetMotorPositionController_getPosition(PhidgetMotorPositionControllerHandle ch,
   double *position);
  PhidgetReturnCode PhidgetMotorPositionController_getMinPosition(PhidgetMotorPositionControllerHandle ch,
   double *minPosition);
  PhidgetReturnCode PhidgetMotorPositionController_getMaxPosition(PhidgetMotorPositionControllerHandle ch,
   double *maxPosition);
+ PhidgetReturnCode PhidgetMotorPositionController_setPositionType(PhidgetMotorPositionControllerHandle ch,
+  Phidget_PositionType positionType);
+ PhidgetReturnCode PhidgetMotorPositionController_getPositionType(PhidgetMotorPositionControllerHandle ch,
+  Phidget_PositionType *positionType);
  PhidgetReturnCode PhidgetMotorPositionController_setRescaleFactor(PhidgetMotorPositionControllerHandle ch,
   double rescaleFactor);
  PhidgetReturnCode PhidgetMotorPositionController_getRescaleFactor(PhidgetMotorPositionControllerHandle ch,
@@ -2393,6 +2637,10 @@ typedef struct _PhidgetMotorPositionController *PhidgetMotorPositionControllerHa
   double *stallVelocity);
  PhidgetReturnCode PhidgetMotorPositionController_getMinStallVelocity(PhidgetMotorPositionControllerHandle ch, double *minStallVelocity);
  PhidgetReturnCode PhidgetMotorPositionController_getMaxStallVelocity(PhidgetMotorPositionControllerHandle ch, double *maxStallVelocity);
+ PhidgetReturnCode PhidgetMotorPositionController_setSurgeCurrentLimit(PhidgetMotorPositionControllerHandle ch, double surgeCurrentLimit);
+ PhidgetReturnCode PhidgetMotorPositionController_getSurgeCurrentLimit(PhidgetMotorPositionControllerHandle ch, double *surgeCurrentLimit);
+ PhidgetReturnCode PhidgetMotorPositionController_getMinSurgeCurrentLimit(PhidgetMotorPositionControllerHandle ch, double *minSurgeCurrentLimit);
+ PhidgetReturnCode PhidgetMotorPositionController_getMaxSurgeCurrentLimit(PhidgetMotorPositionControllerHandle ch, double *maxSurgeCurrentLimit);
  PhidgetReturnCode PhidgetMotorPositionController_setTargetPosition(PhidgetMotorPositionControllerHandle ch,
   double targetPosition);
  void PhidgetMotorPositionController_setTargetPosition_async(PhidgetMotorPositionControllerHandle ch, double targetPosition, Phidget_AsyncCallback fptr, void *ctx);
@@ -2409,9 +2657,139 @@ typedef struct _PhidgetMotorPositionController *PhidgetMotorPositionControllerHa
 typedef void ( *PhidgetMotorPositionController_OnDutyCycleUpdateCallback)(PhidgetMotorPositionControllerHandle ch, void *ctx, double dutyCycle);
 
  PhidgetReturnCode PhidgetMotorPositionController_setOnDutyCycleUpdateHandler(PhidgetMotorPositionControllerHandle ch, PhidgetMotorPositionController_OnDutyCycleUpdateCallback fptr, void *ctx);
+typedef void ( *PhidgetMotorPositionController_OnExpectedPositionChangeCallback)(PhidgetMotorPositionControllerHandle ch, void *ctx, double expectedPosition);
+
+ PhidgetReturnCode PhidgetMotorPositionController_setOnExpectedPositionChangeHandler(PhidgetMotorPositionControllerHandle ch, PhidgetMotorPositionController_OnExpectedPositionChangeCallback fptr, void *ctx);
 typedef void ( *PhidgetMotorPositionController_OnPositionChangeCallback)(PhidgetMotorPositionControllerHandle ch, void *ctx, double position);
 
  PhidgetReturnCode PhidgetMotorPositionController_setOnPositionChangeHandler(PhidgetMotorPositionControllerHandle ch, PhidgetMotorPositionController_OnPositionChangeCallback fptr, void *ctx);
+
+
+
+
+
+
+typedef struct _PhidgetMotorVelocityController *PhidgetMotorVelocityControllerHandle;
+
+
+ PhidgetReturnCode PhidgetMotorVelocityController_create(PhidgetMotorVelocityControllerHandle *ch);
+ PhidgetReturnCode PhidgetMotorVelocityController_delete(PhidgetMotorVelocityControllerHandle *ch);
+ PhidgetReturnCode PhidgetMotorVelocityController_enableFailsafe(PhidgetMotorVelocityControllerHandle ch,
+  uint32_t failsafeTime);
+ PhidgetReturnCode PhidgetMotorVelocityController_resetFailsafe(PhidgetMotorVelocityControllerHandle ch);
+
+
+ PhidgetReturnCode PhidgetMotorVelocityController_setAcceleration(PhidgetMotorVelocityControllerHandle ch,
+  double acceleration);
+ PhidgetReturnCode PhidgetMotorVelocityController_getAcceleration(PhidgetMotorVelocityControllerHandle ch,
+  double *acceleration);
+ PhidgetReturnCode PhidgetMotorVelocityController_getMinAcceleration(PhidgetMotorVelocityControllerHandle ch,
+  double *minAcceleration);
+ PhidgetReturnCode PhidgetMotorVelocityController_getMaxAcceleration(PhidgetMotorVelocityControllerHandle ch,
+  double *maxAcceleration);
+ PhidgetReturnCode PhidgetMotorVelocityController_getActiveCurrentLimit(PhidgetMotorVelocityControllerHandle ch, double *activeCurrentLimit);
+ PhidgetReturnCode PhidgetMotorVelocityController_setCurrentLimit(PhidgetMotorVelocityControllerHandle ch,
+  double currentLimit);
+ PhidgetReturnCode PhidgetMotorVelocityController_getCurrentLimit(PhidgetMotorVelocityControllerHandle ch,
+  double *currentLimit);
+ PhidgetReturnCode PhidgetMotorVelocityController_getMinCurrentLimit(PhidgetMotorVelocityControllerHandle ch,
+  double *minCurrentLimit);
+ PhidgetReturnCode PhidgetMotorVelocityController_getMaxCurrentLimit(PhidgetMotorVelocityControllerHandle ch,
+  double *maxCurrentLimit);
+ PhidgetReturnCode PhidgetMotorVelocityController_setDataInterval(PhidgetMotorVelocityControllerHandle ch,
+  uint32_t dataInterval);
+ PhidgetReturnCode PhidgetMotorVelocityController_getDataInterval(PhidgetMotorVelocityControllerHandle ch,
+  uint32_t *dataInterval);
+ PhidgetReturnCode PhidgetMotorVelocityController_getMinDataInterval(PhidgetMotorVelocityControllerHandle ch,
+  uint32_t *minDataInterval);
+ PhidgetReturnCode PhidgetMotorVelocityController_getMaxDataInterval(PhidgetMotorVelocityControllerHandle ch,
+  uint32_t *maxDataInterval);
+ PhidgetReturnCode PhidgetMotorVelocityController_setDataRate(PhidgetMotorVelocityControllerHandle ch,
+  double dataRate);
+ PhidgetReturnCode PhidgetMotorVelocityController_getDataRate(PhidgetMotorVelocityControllerHandle ch,
+  double *dataRate);
+ PhidgetReturnCode PhidgetMotorVelocityController_getMinDataRate(PhidgetMotorVelocityControllerHandle ch,
+  double *minDataRate);
+ PhidgetReturnCode PhidgetMotorVelocityController_getMaxDataRate(PhidgetMotorVelocityControllerHandle ch,
+  double *maxDataRate);
+ PhidgetReturnCode PhidgetMotorVelocityController_setDeadBand(PhidgetMotorVelocityControllerHandle ch,
+  double deadBand);
+ PhidgetReturnCode PhidgetMotorVelocityController_getDeadBand(PhidgetMotorVelocityControllerHandle ch,
+  double *deadBand);
+ PhidgetReturnCode PhidgetMotorVelocityController_getDutyCycle(PhidgetMotorVelocityControllerHandle ch,
+  double *dutyCycle);
+ PhidgetReturnCode PhidgetMotorVelocityController_setEngaged(PhidgetMotorVelocityControllerHandle ch,
+  int engaged);
+ PhidgetReturnCode PhidgetMotorVelocityController_getEngaged(PhidgetMotorVelocityControllerHandle ch,
+  int *engaged);
+ PhidgetReturnCode PhidgetMotorVelocityController_getExpectedVelocity(PhidgetMotorVelocityControllerHandle ch, double *expectedVelocity);
+ PhidgetReturnCode PhidgetMotorVelocityController_setEnableExpectedVelocity(PhidgetMotorVelocityControllerHandle ch, int enableExpectedVelocity);
+ PhidgetReturnCode PhidgetMotorVelocityController_getEnableExpectedVelocity(PhidgetMotorVelocityControllerHandle ch, int *enableExpectedVelocity);
+ PhidgetReturnCode PhidgetMotorVelocityController_setFailsafeBrakingEnabled(PhidgetMotorVelocityControllerHandle ch, int failsafeBrakingEnabled);
+ PhidgetReturnCode PhidgetMotorVelocityController_getFailsafeBrakingEnabled(PhidgetMotorVelocityControllerHandle ch, int *failsafeBrakingEnabled);
+ PhidgetReturnCode PhidgetMotorVelocityController_setFailsafeCurrentLimit(PhidgetMotorVelocityControllerHandle ch, double failsafeCurrentLimit);
+ PhidgetReturnCode PhidgetMotorVelocityController_getFailsafeCurrentLimit(PhidgetMotorVelocityControllerHandle ch, double *failsafeCurrentLimit);
+ PhidgetReturnCode PhidgetMotorVelocityController_getMinFailsafeTime(PhidgetMotorVelocityControllerHandle ch,
+  uint32_t *minFailsafeTime);
+ PhidgetReturnCode PhidgetMotorVelocityController_getMaxFailsafeTime(PhidgetMotorVelocityControllerHandle ch,
+  uint32_t *maxFailsafeTime);
+ PhidgetReturnCode PhidgetMotorVelocityController_setInductance(PhidgetMotorVelocityControllerHandle ch,
+  double inductance);
+ PhidgetReturnCode PhidgetMotorVelocityController_getInductance(PhidgetMotorVelocityControllerHandle ch,
+  double *inductance);
+ PhidgetReturnCode PhidgetMotorVelocityController_getMinInductance(PhidgetMotorVelocityControllerHandle ch,
+  double *minInductance);
+ PhidgetReturnCode PhidgetMotorVelocityController_getMaxInductance(PhidgetMotorVelocityControllerHandle ch,
+  double *maxInductance);
+ PhidgetReturnCode PhidgetMotorVelocityController_setKd(PhidgetMotorVelocityControllerHandle ch,
+  double kd);
+ PhidgetReturnCode PhidgetMotorVelocityController_getKd(PhidgetMotorVelocityControllerHandle ch,
+  double *kd);
+ PhidgetReturnCode PhidgetMotorVelocityController_setKi(PhidgetMotorVelocityControllerHandle ch,
+  double ki);
+ PhidgetReturnCode PhidgetMotorVelocityController_getKi(PhidgetMotorVelocityControllerHandle ch,
+  double *ki);
+ PhidgetReturnCode PhidgetMotorVelocityController_setKp(PhidgetMotorVelocityControllerHandle ch,
+  double kp);
+ PhidgetReturnCode PhidgetMotorVelocityController_getKp(PhidgetMotorVelocityControllerHandle ch,
+  double *kp);
+ PhidgetReturnCode PhidgetMotorVelocityController_setPositionType(PhidgetMotorVelocityControllerHandle ch,
+  Phidget_PositionType positionType);
+ PhidgetReturnCode PhidgetMotorVelocityController_getPositionType(PhidgetMotorVelocityControllerHandle ch,
+  Phidget_PositionType *positionType);
+ PhidgetReturnCode PhidgetMotorVelocityController_setRescaleFactor(PhidgetMotorVelocityControllerHandle ch,
+  double rescaleFactor);
+ PhidgetReturnCode PhidgetMotorVelocityController_getRescaleFactor(PhidgetMotorVelocityControllerHandle ch,
+  double *rescaleFactor);
+ PhidgetReturnCode PhidgetMotorVelocityController_setStallVelocity(PhidgetMotorVelocityControllerHandle ch,
+  double stallVelocity);
+ PhidgetReturnCode PhidgetMotorVelocityController_getStallVelocity(PhidgetMotorVelocityControllerHandle ch,
+  double *stallVelocity);
+ PhidgetReturnCode PhidgetMotorVelocityController_getMinStallVelocity(PhidgetMotorVelocityControllerHandle ch, double *minStallVelocity);
+ PhidgetReturnCode PhidgetMotorVelocityController_getMaxStallVelocity(PhidgetMotorVelocityControllerHandle ch, double *maxStallVelocity);
+ PhidgetReturnCode PhidgetMotorVelocityController_setSurgeCurrentLimit(PhidgetMotorVelocityControllerHandle ch, double surgeCurrentLimit);
+ PhidgetReturnCode PhidgetMotorVelocityController_getSurgeCurrentLimit(PhidgetMotorVelocityControllerHandle ch, double *surgeCurrentLimit);
+ PhidgetReturnCode PhidgetMotorVelocityController_getMinSurgeCurrentLimit(PhidgetMotorVelocityControllerHandle ch, double *minSurgeCurrentLimit);
+ PhidgetReturnCode PhidgetMotorVelocityController_getMaxSurgeCurrentLimit(PhidgetMotorVelocityControllerHandle ch, double *maxSurgeCurrentLimit);
+ PhidgetReturnCode PhidgetMotorVelocityController_setTargetVelocity(PhidgetMotorVelocityControllerHandle ch,
+  double targetVelocity);
+ PhidgetReturnCode PhidgetMotorVelocityController_getTargetVelocity(PhidgetMotorVelocityControllerHandle ch,
+  double *targetVelocity);
+ PhidgetReturnCode PhidgetMotorVelocityController_getMinTargetVelocity(PhidgetMotorVelocityControllerHandle ch, double *minTargetVelocity);
+ PhidgetReturnCode PhidgetMotorVelocityController_getMaxTargetVelocity(PhidgetMotorVelocityControllerHandle ch, double *maxTargetVelocity);
+ PhidgetReturnCode PhidgetMotorVelocityController_getVelocity(PhidgetMotorVelocityControllerHandle ch,
+  double *velocity);
+
+
+typedef void ( *PhidgetMotorVelocityController_OnDutyCycleUpdateCallback)(PhidgetMotorVelocityControllerHandle ch, void *ctx, double dutyCycle);
+
+ PhidgetReturnCode PhidgetMotorVelocityController_setOnDutyCycleUpdateHandler(PhidgetMotorVelocityControllerHandle ch, PhidgetMotorVelocityController_OnDutyCycleUpdateCallback fptr, void *ctx);
+typedef void ( *PhidgetMotorVelocityController_OnExpectedVelocityChangeCallback)(PhidgetMotorVelocityControllerHandle ch, void *ctx, double expectedVelocity);
+
+ PhidgetReturnCode PhidgetMotorVelocityController_setOnExpectedVelocityChangeHandler(PhidgetMotorVelocityControllerHandle ch, PhidgetMotorVelocityController_OnExpectedVelocityChangeCallback fptr, void *ctx);
+typedef void ( *PhidgetMotorVelocityController_OnVelocityChangeCallback)(PhidgetMotorVelocityControllerHandle ch, void *ctx, double velocity);
+
+ PhidgetReturnCode PhidgetMotorVelocityController_setOnVelocityChangeHandler(PhidgetMotorVelocityControllerHandle ch, PhidgetMotorVelocityController_OnVelocityChangeCallback fptr, void *ctx);
 
 
 
@@ -2431,6 +2809,10 @@ typedef struct _PhidgetBLDCMotor *PhidgetBLDCMotorHandle;
  PhidgetReturnCode PhidgetBLDCMotor_getAcceleration(PhidgetBLDCMotorHandle ch, double *acceleration);
  PhidgetReturnCode PhidgetBLDCMotor_getMinAcceleration(PhidgetBLDCMotorHandle ch, double *minAcceleration);
  PhidgetReturnCode PhidgetBLDCMotor_getMaxAcceleration(PhidgetBLDCMotorHandle ch, double *maxAcceleration);
+ PhidgetReturnCode PhidgetBLDCMotor_getActiveCurrentLimit(PhidgetBLDCMotorHandle ch,
+  double *activeCurrentLimit);
+ PhidgetReturnCode PhidgetBLDCMotor_setBrakingEnabled(PhidgetBLDCMotorHandle ch, int brakingEnabled);
+ PhidgetReturnCode PhidgetBLDCMotor_getBrakingEnabled(PhidgetBLDCMotorHandle ch, int *brakingEnabled);
  PhidgetReturnCode PhidgetBLDCMotor_getBrakingStrength(PhidgetBLDCMotorHandle ch, double *brakingStrength);
  PhidgetReturnCode PhidgetBLDCMotor_getMinBrakingStrength(PhidgetBLDCMotorHandle ch,
   double *minBrakingStrength);
@@ -2450,10 +2832,24 @@ typedef struct _PhidgetBLDCMotor *PhidgetBLDCMotorHandle;
  PhidgetReturnCode PhidgetBLDCMotor_getDataRate(PhidgetBLDCMotorHandle ch, double *dataRate);
  PhidgetReturnCode PhidgetBLDCMotor_getMinDataRate(PhidgetBLDCMotorHandle ch, double *minDataRate);
  PhidgetReturnCode PhidgetBLDCMotor_getMaxDataRate(PhidgetBLDCMotorHandle ch, double *maxDataRate);
+ PhidgetReturnCode PhidgetBLDCMotor_setDriveMode(PhidgetBLDCMotorHandle ch, Phidget_DriveMode driveMode);
+ PhidgetReturnCode PhidgetBLDCMotor_getDriveMode(PhidgetBLDCMotorHandle ch, Phidget_DriveMode *driveMode);
+ PhidgetReturnCode PhidgetBLDCMotor_setFailsafeBrakingEnabled(PhidgetBLDCMotorHandle ch,
+  int failsafeBrakingEnabled);
+ PhidgetReturnCode PhidgetBLDCMotor_getFailsafeBrakingEnabled(PhidgetBLDCMotorHandle ch,
+  int *failsafeBrakingEnabled);
+ PhidgetReturnCode PhidgetBLDCMotor_setFailsafeCurrentLimit(PhidgetBLDCMotorHandle ch,
+  double failsafeCurrentLimit);
+ PhidgetReturnCode PhidgetBLDCMotor_getFailsafeCurrentLimit(PhidgetBLDCMotorHandle ch,
+  double *failsafeCurrentLimit);
  PhidgetReturnCode PhidgetBLDCMotor_getMinFailsafeTime(PhidgetBLDCMotorHandle ch,
   uint32_t *minFailsafeTime);
  PhidgetReturnCode PhidgetBLDCMotor_getMaxFailsafeTime(PhidgetBLDCMotorHandle ch,
   uint32_t *maxFailsafeTime);
+ PhidgetReturnCode PhidgetBLDCMotor_setInductance(PhidgetBLDCMotorHandle ch, double inductance);
+ PhidgetReturnCode PhidgetBLDCMotor_getInductance(PhidgetBLDCMotorHandle ch, double *inductance);
+ PhidgetReturnCode PhidgetBLDCMotor_getMinInductance(PhidgetBLDCMotorHandle ch, double *minInductance);
+ PhidgetReturnCode PhidgetBLDCMotor_getMaxInductance(PhidgetBLDCMotorHandle ch, double *maxInductance);
  PhidgetReturnCode PhidgetBLDCMotor_getPosition(PhidgetBLDCMotorHandle ch, double *position);
  PhidgetReturnCode PhidgetBLDCMotor_getMinPosition(PhidgetBLDCMotorHandle ch, double *minPosition);
  PhidgetReturnCode PhidgetBLDCMotor_getMaxPosition(PhidgetBLDCMotorHandle ch, double *maxPosition);
@@ -2465,6 +2861,14 @@ typedef struct _PhidgetBLDCMotor *PhidgetBLDCMotorHandle;
   double *minStallVelocity);
  PhidgetReturnCode PhidgetBLDCMotor_getMaxStallVelocity(PhidgetBLDCMotorHandle ch,
   double *maxStallVelocity);
+ PhidgetReturnCode PhidgetBLDCMotor_setSurgeCurrentLimit(PhidgetBLDCMotorHandle ch,
+  double surgeCurrentLimit);
+ PhidgetReturnCode PhidgetBLDCMotor_getSurgeCurrentLimit(PhidgetBLDCMotorHandle ch,
+  double *surgeCurrentLimit);
+ PhidgetReturnCode PhidgetBLDCMotor_getMinSurgeCurrentLimit(PhidgetBLDCMotorHandle ch,
+  double *minSurgeCurrentLimit);
+ PhidgetReturnCode PhidgetBLDCMotor_getMaxSurgeCurrentLimit(PhidgetBLDCMotorHandle ch,
+  double *maxSurgeCurrentLimit);
  PhidgetReturnCode PhidgetBLDCMotor_setTargetBrakingStrength(PhidgetBLDCMotorHandle ch,
   double targetBrakingStrength);
  PhidgetReturnCode PhidgetBLDCMotor_getTargetBrakingStrength(PhidgetBLDCMotorHandle ch,
@@ -2817,6 +3221,17 @@ typedef struct _PhidgetHub *PhidgetHubHandle;
 
  PhidgetReturnCode PhidgetHub_create(PhidgetHubHandle *ch);
  PhidgetReturnCode PhidgetHub_delete(PhidgetHubHandle *ch);
+
+ PhidgetReturnCode PhidgetHub_setADCCalibrationValues(PhidgetHubHandle ch, double voltageInputGain[6],
+  double voltageRatioGain[6]);
+
+
+ PhidgetReturnCode PhidgetHub_setADCCalibrationValues2(PhidgetHubHandle ch, const double *voltageInputOffset,
+  size_t voltageInputOffsetLen, const double *voltageInputGain, size_t voltageInputGainLen, const double *voltageRatioOffset, size_t voltageRatioOffsetLen, const double *voltageRatioGain, size_t voltageRatioGainLen);
+
+
+ PhidgetReturnCode PhidgetHub_setFirmwareUpgradeFlag(PhidgetHubHandle ch, int port, uint32_t timeout);
+
  PhidgetReturnCode PhidgetHub_setPortAutoSetSpeed(PhidgetHubHandle ch, int port, int state);
  PhidgetReturnCode PhidgetHub_getPortMaxSpeed(PhidgetHubHandle ch, int port, uint32_t *state);
  PhidgetReturnCode PhidgetHub_getPortMode(PhidgetHubHandle ch, int port, PhidgetHub_PortMode *mode);
@@ -2830,7 +3245,121 @@ typedef struct _PhidgetHub *PhidgetHubHandle;
 
 
 
+
+typedef struct _PhidgetMeshDongle *PhidgetMeshDongleHandle;
+
+
+ PhidgetReturnCode PhidgetMeshDongle_create(PhidgetMeshDongleHandle *ch);
+ PhidgetReturnCode PhidgetMeshDongle_delete(PhidgetMeshDongleHandle *ch);
+
+
+
+
+
+
+typedef struct _PhidgetFirmwareUpgrade *PhidgetFirmwareUpgradeHandle;
+
+
+ PhidgetReturnCode PhidgetFirmwareUpgrade_create(PhidgetFirmwareUpgradeHandle *ch);
+ PhidgetReturnCode PhidgetFirmwareUpgrade_delete(PhidgetFirmwareUpgradeHandle *ch);
+
+ PhidgetReturnCode PhidgetFirmwareUpgrade_sendFirmware(PhidgetFirmwareUpgradeHandle ch, const uint8_t *data,
+  size_t dataLen);
+
+
+
+
+ PhidgetReturnCode PhidgetFirmwareUpgrade_getActualDeviceID(PhidgetFirmwareUpgradeHandle ch,
+  Phidget_DeviceID *actualDeviceID);
+
+
+ PhidgetReturnCode PhidgetFirmwareUpgrade_getActualDeviceName(PhidgetFirmwareUpgradeHandle ch,
+  const char **actualDeviceName);
+
+
+ PhidgetReturnCode PhidgetFirmwareUpgrade_getActualDeviceSKU(PhidgetFirmwareUpgradeHandle ch,
+  const char **actualDeviceSKU);
+
+
+ PhidgetReturnCode PhidgetFirmwareUpgrade_getActualDeviceVersion(PhidgetFirmwareUpgradeHandle ch,
+  int *actualDeviceVersion);
+
+
+ PhidgetReturnCode PhidgetFirmwareUpgrade_getActualDeviceVINTID(PhidgetFirmwareUpgradeHandle ch,
+  uint32_t *actualDeviceVINTID);
+
+
+ PhidgetReturnCode PhidgetFirmwareUpgrade_getProgress(PhidgetFirmwareUpgradeHandle ch, double *progress);
+
+
+
+
+typedef void ( *PhidgetFirmwareUpgrade_OnProgressChangeCallback)(PhidgetFirmwareUpgradeHandle ch,
+  void *ctx, double progress);
+
+ PhidgetReturnCode PhidgetFirmwareUpgrade_setOnProgressChangeHandler(PhidgetFirmwareUpgradeHandle ch,
+  PhidgetFirmwareUpgrade_OnProgressChangeCallback fptr, void *ctx);
+
+
+
+
+
+
+typedef struct _PhidgetGeneric *PhidgetGenericHandle;
+
+
+ PhidgetReturnCode PhidgetGeneric_create(PhidgetGenericHandle *ch);
+ PhidgetReturnCode PhidgetGeneric_delete(PhidgetGenericHandle *ch);
+ PhidgetReturnCode PhidgetGeneric_readChannelPacket(PhidgetGenericHandle ch, int packetType, int index,
+  uint8_t *packet, size_t *packetLen);
+ PhidgetReturnCode PhidgetGeneric_readDevicePacket(PhidgetGenericHandle ch, int packetType, uint8_t *packet,
+  size_t *packetLen);
+ PhidgetReturnCode PhidgetGeneric_sendChannelPacket(PhidgetGenericHandle ch, int packetType, int index,
+  const uint8_t *packet, size_t packetLen);
+ void PhidgetGeneric_sendChannelPacket_async(PhidgetGenericHandle ch, int packetType, int index,
+  const uint8_t *packet, size_t packetLen, Phidget_AsyncCallback fptr, void *ctx);
+ PhidgetReturnCode PhidgetGeneric_sendDevicePacket(PhidgetGenericHandle ch, int packetType,
+  const uint8_t *packet, size_t packetLen);
+ void PhidgetGeneric_sendDevicePacket_async(PhidgetGenericHandle ch, int packetType,
+  const uint8_t *packet, size_t packetLen, Phidget_AsyncCallback fptr, void *ctx);
+ PhidgetReturnCode PhidgetGeneric_sendPacket(PhidgetGenericHandle ch, const uint8_t *packet,
+  size_t packetLen);
+ void PhidgetGeneric_sendPacket_async(PhidgetGenericHandle ch, const uint8_t *packet,
+  size_t packetLen, Phidget_AsyncCallback fptr, void *ctx);
+
+
+ PhidgetReturnCode PhidgetGeneric_getINPacketLength(PhidgetGenericHandle ch, uint32_t *INPacketLength);
+ PhidgetReturnCode PhidgetGeneric_getOUTPacketLength(PhidgetGenericHandle ch, uint32_t *OUTPacketLength);
+
+
+typedef void ( *PhidgetGeneric_OnPacketCallback)(PhidgetGenericHandle ch, void *ctx,
+  const uint8_t *packet, size_t packetLen);
+
+ PhidgetReturnCode PhidgetGeneric_setOnPacketHandler(PhidgetGenericHandle ch,
+  PhidgetGeneric_OnPacketCallback fptr, void *ctx);
+
+
+
+
+
 typedef struct _PhidgetDictionary *PhidgetDictionaryHandle;
+
+
+
+ PhidgetReturnCode PhidgetDictionary_enableControlDictionary(void);
+
+
+ PhidgetReturnCode PhidgetDictionary_addDictionary(int deviceSerialNumber, const char *label);
+
+
+ PhidgetReturnCode PhidgetDictionary_removeDictionary(int deviceSerialNumber);
+
+
+ PhidgetReturnCode PhidgetDictionary_loadDictionary(int dictionarySerialNumber, const char *file);
+
+
+ PhidgetReturnCode PhidgetDictionary_enableStatsDictionary(void);
+
  PhidgetReturnCode PhidgetDictionary_create(PhidgetDictionaryHandle *ch);
  PhidgetReturnCode PhidgetDictionary_delete(PhidgetDictionaryHandle *ch);
  PhidgetReturnCode PhidgetDictionary_add(PhidgetDictionaryHandle ch, const char *key, const char *value);

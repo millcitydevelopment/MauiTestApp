@@ -45,6 +45,10 @@
 	<key>DTXcodeBuild</key>
 	<string>12B45b</string>
 	<key>LSMinimumSystemVersion</key>
-	<string>10.9</string>
+	<string>10.15</string>
+	<key>UIDeviceFamily</key>
+	<array>
+		<integer>2</integer>
+	</array>
 </dict>
 </plist>
