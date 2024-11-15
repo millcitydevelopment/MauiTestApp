@@ -20,7 +20,8 @@ public partial class MainPage : ContentPage
 	private void OnCounterClicked(object sender, EventArgs e)
 	{
 		count++;
-		string btnText = count + "   Binding Code Temp: " + ServiceLocator.Phidget.GetTemp1();
+		string btnText = count.ToString();
+//		btnText += "   Binding Code Temp: " + ServiceLocator.Phidget.GetTemp1();
 		btnText += "   Phidget NuGet Temp: " +  temp.Temperature;
 		CounterBtn.Text = btnText;
 	}

@@ -116,8 +116,10 @@
 		<PropertyGroup>
 			<AppBundlePath>$(OutputPath)$(AssemblyName).app</AppBundlePath>
 		</PropertyGroup>
+		<!--This events runs mutiple times. If create bundle property is false, one of the times this fires will result in a location without an app file. Use the Exists condition to check location. -->
 		<Message Text="AppBundlePath is: $(AppBundlePath)" Importance="High" Condition="Exists('$(AppBundlePath)')"/>
-    	<Exec Command="ln -sf $(AppBundlePath)/Contents/Frameworks/Phidget22.framework/Versions/A/Phidget22 $(AppBundlePath)/Contents/MonoBundle/libphidget22.dylib" Condition="Exists('$(AppBundlePath)')"/>
-    	<Exec Command="ln -sf $(AppBundlePath)/Contents/Frameworks/Phidget22.framework/Versions/A/Phidget22 $(AppBundlePath)/Contents/MacOS/libphidget22.dylib" Condition="Exists('$(AppBundlePath)')"/>
+    	<Exec Command="ln -sf ../Frameworks/Phidget22.framework/Versions/A/Phidget22 $(AppBundlePath)/Contents/MonoBundle/libphidget22.dylib" Condition="Exists('$(AppBundlePath)')"/>
+		<!--Remove the the Windows Phidget Libraries, the dll folder-->
+    	<Exec Command="rm -rf $(AppBundlePath)/Contents/MonoBundle/dll" Condition="Exists('$(AppBundlePath)')"/> 
 	</Target>
 </Project>
