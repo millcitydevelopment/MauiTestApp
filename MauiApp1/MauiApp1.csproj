@@ -14,6 +14,7 @@
 		either BOTH runtimes must be indicated or ONLY macatalyst-x64. -->
 		<!-- For example: <RuntimeIdentifiers>maccatalyst-x64;maccatalyst-arm64</RuntimeIdentifiers> -->
 		<!--<RuntimeIdentifiers>maccatalyst-x64;maccatalyst-arm64;win10-x64</RuntimeIdentifiers> -->
+
 		<UseRidGraph>true</UseRidGraph>
 
 		<OutputType>Exe</OutputType>
@@ -61,10 +62,11 @@
 	  <ApplicationTitle>RoastPath</ApplicationTitle>
 		<CodesignKey>Developer ID Application: Mill City Roasters, LLC (DLJLZEVP69)</CodesignKey>
 		<CodesignProvision>RPScottMacCatalystDeveloperIdDistribution08082024a</CodesignProvision>
-		<CreatePackage>true</CreatePackage>
+		<CreatePackage>false</CreatePackage>
 		<MtouchHttpClientHandler>NSUrlSessionHandler</MtouchHttpClientHandler>
 		<UseHardenedRuntime>true</UseHardenedRuntime>
 
+		<EnableMacCatalystUniversalBuild>true</EnableMacCatalystUniversalBuild>
 		<PublishAot>true</PublishAot>
   		<MtouchLink>Full</MtouchLink>
   		<AotAssemblies>true</AotAssemblies>
@@ -77,15 +79,6 @@
 		</NativeReference>
 	</ItemGroup>
 
-	<!-- <ItemGroup>
-		<NativeReference Include="Platforms/MacCatalyst/Frameworks/Phidget22.framework">
-			<Kind>Framework</Kind>
-			<Frameworks>CoreFoundation</Frameworks>
-			<IsCxx>false</IsCxx> 
-			<ForceLoad>true</ForceLoad>
-			<SmartLink>false</SmartLink>
-		</NativeReference>
-	</ItemGroup> -->
 
 	<ItemGroup>
 		<!-- App Icon -->
@@ -104,6 +97,12 @@
 		<!-- Raw Assets (also remove the "Resources\Raw" prefix) -->
 		<MauiAsset Include="Resources\Raw\**" LogicalName="%(RecursiveDir)%(Filename)%(Extension)" />
 	</ItemGroup>
+
+	<!--  https://github.com/xamarin/xamarin-macios/issues/19451  -->
+<!--	<PropertyGroup>
+    	<_UseClassicLinker>false</_UseClassicLinker>
+	</PropertyGroup>
+-->
 
 	<ItemGroup>
 		<PackageReference Include="Microsoft.Maui.Controls" Version="$(MauiVersion)" />
