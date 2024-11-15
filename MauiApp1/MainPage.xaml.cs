@@ -21,7 +21,6 @@ public partial class MainPage : ContentPage
 	{
 		count++;
 		string btnText = count.ToString();
-//		btnText += "   Binding Code Temp: " + ServiceLocator.Phidget.GetTemp1();
 		btnText += "   Phidget NuGet Temp: " +  temp.Temperature;
 		CounterBtn.Text = btnText;
 	}
