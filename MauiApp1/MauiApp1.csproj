@@ -67,17 +67,18 @@
 		<UseHardenedRuntime>true</UseHardenedRuntime>
 
 		<EnableMacCatalystUniversalBuild>true</EnableMacCatalystUniversalBuild>
-		<PublishAot>true</PublishAot>
+		<PublishAot>false</PublishAot>
   		<MtouchLink>Full</MtouchLink>
-  		<AotAssemblies>true</AotAssemblies>
+  		<AotAssemblies>false</AotAssemblies>
+
 	</PropertyGroup>
 
-	<ItemGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'maccatalyst'">
+	<!-- <ItemGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'maccatalyst'">
 		<NativeReference Include="Platforms/MacCatalyst/Frameworks/Phidget22.framework">
 			<Kind>Framework</Kind>
 			<SmartLink>false</SmartLink>
 		</NativeReference>
-	</ItemGroup>
+	</ItemGroup> -->
 
 
 	<ItemGroup>
@@ -105,20 +106,9 @@
 -->
 
 	<ItemGroup>
-		<PackageReference Include="Microsoft.Maui.Controls" Version="$(MauiVersion)" />
-		<PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="$(MauiVersion)" />
-		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="8.0.0" />
-		<PackageReference Include="Phidget22.NET" Version="1.20.20240911" />
+		<PackageReference Include="Microsoft.Maui.Controls" Version="8.0.92" />
+		<PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="8.0.92" />
+		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="8.0.1" />
+		<PackageReference Include="Phidget22.NET" Version="1.21.20241123" />
 	</ItemGroup>
-
-	<Target Name="PostBuildSymlink" AfterTargets="Build">
-		<PropertyGroup>
-			<AppBundlePath>$(OutputPath)$(AssemblyName).app</AppBundlePath>
-		</PropertyGroup>
-		<!--This events runs mutiple times. If create bundle property is false, one of the times this fires will result in a location without an app file. Use the Exists condition to check location. -->
-		<Message Text="AppBundlePath is: $(AppBundlePath)" Importance="High" Condition="Exists('$(AppBundlePath)')"/>
-    	<Exec Command="ln -sf ../Frameworks/Phidget22.framework/Versions/A/Phidget22 $(AppBundlePath)/Contents/MonoBundle/libphidget22.dylib" Condition="Exists('$(AppBundlePath)')"/>
-		<!--Remove the the Windows Phidget Libraries, the dll folder-->
-    	<Exec Command="rm -rf $(AppBundlePath)/Contents/MonoBundle/dll" Condition="Exists('$(AppBundlePath)')"/> 
-	</Target>
 </Project>
